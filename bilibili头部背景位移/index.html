@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+
+    body {
+      margin: 0;
+    }
+
+    header {
+      height: 160px;
+      position: relative;
+      overflow: hidden;
+
+      --percentage: 0.5;
+    }
+
+    header .view, header .tree {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    header img, header video {
+      position: absolute;
+      display: block;
+      width: 120%;
+      height: 100%;
+      object-fit: cover;
+    }
+    /* 早上 -> 下午 -> 晚上 */
+    header .morning {
+      z-index: 20;
+      opacity: calc(1 - (var(--percentage) - 0.25) / 0.25);
+    }
+
+    header .afternoon {
+      z-index: 10;
+      opacity: calc(1 - (var(--percentage) - 0.5) / 0.5);
+    }
+
+    header .view {
+      transform: translateX(calc(var(--percentage) * 100px));
+    }
+    header .tree {
+      transform: translateX(calc(var(--percentage) * 50px));
+      filter: blur(3px);
+    }
+
+    header .view,
+    header .tree,
+    header .morning,
+    header .afternoon {
+      transition: .2s all ease-in;
+    }
+
+    header.moving .view,
+    header.moving .tree,
+    header.moving .morning,
+    header.moving .afternoon {
+      transition: none;
+    }
+
+    header .window-cover {
+      opacity: calc((var(--percentage) - 0.9) / 0.1);
+    }
+  </style>
+</head>
+<body>
+  <header style="opacity: 1;">
+    <div class="view">
+      <img src="https://assets.codepen.io/2002878/bilibili-winter-view-1.jpg" class="morning" />
+      <img src="https://assets.codepen.io/2002878/bilibili-winter-view-2.jpg" class="afternoon" />
+      <video autoplay loop muted class="evening">
+        <source src="https://assets.codepen.io/2002878/bilibili-winter-view-3.webm" type="video/webm" />
+      </video>
+      <img src="https://assets.codepen.io/2002878/bilibili-winter-view-3-snow.png" class="window-cover" alt="">
+    </div>
+
+    <div class="tree">
+      <img src="https://assets.codepen.io/2002878/bilibili-winter-tree-1.png" class="morning" />
+      <img src="https://assets.codepen.io/2002878/bilibili-winter-tree-2.png" class="afternoon" />
+      <img src="https://assets.codepen.io/2002878/bilibili-winter-tree-3.png" class="evening" />
+    </div>
+  </header>
+
+  <script>
+    let startingPoint
+    const header = document.querySelector('header')
+
+    // 一进入header 就保存其鼠标坐标
+    header.onmouseenter = function (e) {
+      startingPoint = e.clientX
+      console.log('startingPoint', startingPoint)
+    }
+    header.onmouseout = function (e) {
+      header.style.setProperty('--percentage', 0.5)
+    }
+
+    header.onmousemove = function (e) {
+      let percentage = (e.clientX - startingPoint) / window.outerWidth + 0.5
+      console.log(e.clientX - startingPoint, (e.clientX - startingPoint) / window.outerWidth, percentage)
+
+      header.style.setProperty('--percentage', percentage)
+    }
+  </script>
+</body>
+</html>

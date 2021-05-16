@@ -1,0 +1,99 @@
+<!-- 
+  此网站查看效果
+  https://play.tailwindcss.com/O99GQB0zsS?file=css
+ -->
+
+<html>
+  <div class="container mx-auto">
+
+    <input type="radio" id="iphone-12-pro" name="tab" hidden>
+    <input type="radio" id="iphone-12" name="tab" hidden>
+    <input type="radio" id="iphone-SE" name="tab" hidden>
+  
+    <div class="my-4 nav">
+      <label for="iphone-12-pro">
+        <span class=" py-2 px-5 rounded-full hover:bg-gray-200 transition">iPhone 12 Pro</span>
+      </label>
+      <label for="iphone-12">
+        <span class=" py-2 px-5 rounded-full hover:bg-gray-200 transition">iPhone 12 Pro</span>
+      </label>
+      <label for="iphone-SE">
+        <span class=" py-2 px-5 rounded-full hover:bg-gray-200 transition">iPhone 12 Pro</span>
+      </label>
+    </div>
+  
+    <div class=" p-8 rounded-xl shadow-md hidden tab-iphone-12-pro">
+      <div class=" w-3/5 flex flex-col justify-center">
+        <div>
+          <h2 class=" text-xl font-bold">iPhone 12 Pro</h2>
+          <p class=" mt-3">
+            使用语音发送信息、设置提醒事项以及执行更多操作在锁定屏幕、信息、邮件、快速输入等 app 或功能中获取智能建议通过只响应你语音的“嘿 Siri”即可免提激活11可在常用的 app 中用你的语音运行快捷指令
+          </p>
+          <button class=" text-lg bg-black rounded-full text-white py-2 px-5 mt-6 transform hover:scale-110 hover:bg-blue-600">Shop Now</button>
+        </div>
+      </div>
+      <div class=" w-2/5">
+        <img src="https://www.apple.com.cn/v/iphone/compare/u/images/overview/compare_iphone12_mini_black__32g32p2j7hem_large.jpg" alt="">
+      </div>
+    </div>
+  
+    <div class=" p-8 rounded-xl shadow-md hidden tab-iphone-12">
+      <div class=" w-3/5 flex flex-col justify-center">
+        <div>
+          <h2 class=" text-xl font-bold">iPhone 12</h2>
+          <p class=" mt-3">
+            使用语音发送信息、设置提醒事项以及执行更多操作在锁定屏幕、信息、邮件、快速输入等 app 或功能中获取智能建议通过只响应你语音的“嘿 Siri”即可免提激活11可在常用的 app 中用你的语音运行快捷指令
+          </p>
+          <button class=" text-lg bg-black rounded-full text-white py-2 px-5 mt-6 transform hover:scale-110 hover:bg-blue-600">Shop Now</button>
+        </div>
+      </div>
+      <div class=" w-2/5">
+        <img src="https://www.apple.com.cn/v/iphone/compare/u/images/overview/compare_iphone12_mini_black__32g32p2j7hem_large.jpg" alt="">
+      </div>
+    </div>
+  
+    <div class=" p-8 rounded-xl shadow-md hidden tab-iphone-SE">
+      <div class=" w-3/5 flex flex-col justify-center">
+        <div>
+          <h2 class=" text-xl font-bold">iPhone SE</h2>
+          <p class=" mt-3">
+            使用语音发送信息、设置提醒事项以及执行更多操作在锁定屏幕、信息、邮件、快速输入等 app 或功能中获取智能建议通过只响应你语音的“嘿 Siri”即可免提激活11可在常用的 app 中用你的语音运行快捷指令
+          </p>
+          <button class=" text-lg bg-black rounded-full text-white py-2 px-5 mt-6 transform hover:scale-110 hover:bg-blue-600">Shop Now</button>
+        </div>
+      </div>
+      <div class=" w-2/5">
+        <img src="https://www.apple.com.cn/v/iphone/compare/u/images/overview/compare_iphone12_mini_black__32g32p2j7hem_large.jpg" alt="">
+      </div>
+    </div>
+  </div>  
+</html>
+
+<styl>
+  @tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#iphone-12-pro:checked ~ .tab-iphone-12-pro {
+  @apply flex
+}
+#iphone-12-pro:checked ~ .nav label[for="iphone-12-pro"] span {
+  @apply bg-gray-200
+}
+
+#iphone-12:checked ~ .tab-iphone-12 {
+  @apply flex
+}
+#iphone-12:checked ~ .nav label[for="iphone-12"] span {
+  @apply bg-gray-200
+}
+
+#iphone-SE:checked ~ .tab-iphone-SE {
+  @apply flex
+}
+#iphone-SE:checked ~ .nav label[for="iphone-SE"] span {
+  @apply bg-gray-200
+}
+
+
+</styl>
