@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>iMax</title>
+  <style>
+    body {
+      padding: 0;
+      margin: 0;
+    }
+
+    .image {
+      position: relative;
+      overflow: hidden;
+    }
+    .image img {
+      display: block;
+      position: relative;
+      top: 50%;
+      left: 50%;
+      transform: translateX(calc(-50% - 30px));
+    }
+
+    h2 {
+      font-size: 72px;
+      font-family: Helvetica;
+      /* letter-spacing: -0.12em; */
+      width: 290px;
+      font-weight: normal;
+      /* position: relative; */
+      left: 50%;
+      position: sticky;
+      top: -1px;
+      margin: 100px 0;
+      padding: 0;
+      transform: scale(clamp(0.15, var(--scale), 1));
+      transform-origin: 0% 0%;
+    }
+  </style>
+</head>
+<body>
+  <div class="imac">
+    <h2 style="--scale: 1">Only 11.5mm. Now that's thin.</h2>
+    <div class="image">
+      <img src="https://www.apple.com/105/media/us/imac-24/2021/5e004d75-3ad6-4bb9-ab59-41f891fc52f0/anim/design-hero/large/flow/flow_startframe.jpg" alt="">
+    </div>
+  </div>
+  <script>
+    let isPinned = false
+    const h2 = document.querySelector('h2')
+    const observer = new IntersectionObserver(([e]) => {
+      // e.target.classList
+      isPinned = e.intersectionRatio < 1
+    }, {
+      /* 规定了一个监听目标与边界盒交叉区域的比例值，
+      可以是一个具体的数值或是一组0.0到1.0之间的数组。
+      若指定值为0.0，则意味着监听元素即使与根有1像素交叉，
+      此元素也会被视为可见. 若指定值为1.0，则意味着整个元素都是可见的 */
+      // 此处设为1，就是只要稍微有一点不可见，就会触发，因为回调函数的触发条件为
+      // 元素的可见比超过/或低于指定阈值
+      // 此处不可见是被滚动了所以上面的top:-1，就是为了可以让h2被滚动掉1px
+      // 而1px的不可见，不可见比小于1,就触发了回调
+      threshold: 1
+    })
+
+    observer.observe(h2)
+
+    document.addEventListener('scroll', e => {
+      if (isPinned) {
+        let html = document.documentElement
+        let height = parseInt(getComputedStyle(h2).getPropertyValue('height')) + parseInt(getComputedStyle(h2).getPropertyValue('margin-bottom'))
+        let marginTop = parseInt(getComputedStyle(h2).getPropertyValue('margin-top'))
+
+        // 已经滚到顶了，然后拿到已经滚的距离，先把上面的marginTop减去，再跟height算滚动比例
+        let scrolled = (html.scrollTop - marginTop) / height
+
+
+        console.log(height, marginTop, scrolled, 1 - scrolled)
+
+        h2.style.setProperty('--scale', (1 - scrolled))
+      }
+    })
+
+  </script>
+</body>
+</html>
