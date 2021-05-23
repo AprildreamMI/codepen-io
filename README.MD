@@ -1,8 +1,76 @@
 # 常用DOM操作
 
+## 获取节点
+
 ![获取节点](https://zh.javascript.info/article/dom-navigation/dom-links.svg)
 
+## 获取元素节点
+
 ![获取元素节点](https://zh.javascript.info/article/dom-navigation/dom-links-elements.svg)
+
+## 创建节点
+
+  - `document.createElement(tag)` — 用给定的标签创建一个元素节点，
+  - `document.createTextNode(value)` — 创建一个文本节点（很少使用），
+  - `elem.cloneNode(deep)` — 克隆元素，如果 `deep==true` 则与其后代一起克隆。
+
+## 插入节点
+
+> 插入节点或者文本字符串，不是`html`
+
+```javascript
+<div id="div"></div>
+<script>
+    // 可以有多个node参数
+  div.before('<p>Hello</p>', document.createElement('hr'));
+</script>
+
+// 最终结果
+&lt;p&gt;Hello&lt;/p&gt;
+<hr>
+<div id="div"></div>
+```
+
+![](https://zh.javascript.info/article/modifying-document/before-prepend-append-after.svg)
+
+  - `node.append(...nodes or strings)` — 在 `node` 末尾插入，
+  - `node.prepend(...nodes or strings)` — 在 `node` 开头插入，
+  - `node.before(...nodes or strings)` — 在 `node` 之前插入，
+  - `node.after(...nodes or strings)` — 在 `node` 之后插入，
+  - `node.replaceWith(...nodes or strings)` — 替换 `node`。
+  - `node.remove()` — 移除 `node`。
+
+请注意：如果我们要将一个元素 **移动** 到另一个地方，则无需将其从原来的位置中删除。
+
+**所有插入方法都会自动从旧位置删除该节点。**
+
+```javascript
+<div id="first">First</div>
+<div id="second">Second</div>
+<script>
+  // 无需调用 remove
+  second.after(first); // 获取 #second，并在其后面插入 #first
+</script>
+
+// 结果
+Second
+First
+```
+
+
+
+## 插入HTML
+
+![](https://zh.javascript.info/article/modifying-document/insert-adjacent.svg)
+
+为此，我们可以使用另一个非常通用的方法：`elem.insertAdjacentHTML(where, html)`。
+
+该方法的第一个参数是代码字（code word），指定相对于 `elem` 的插入位置。必须为以下之一：
+
+- `"beforebegin"` — 将 `html` 插入到 `elem` 前插入，
+- `"afterbegin"` — 将 `html` 插入到 `elem` 开头，
+- `"beforeend"` — 将 `html` 插入到 `elem` 末尾，
+- `"afterend"` — 将 `html` 插入到 `elem` 后。
 
 ## document滚动
 
@@ -143,5 +211,39 @@ let marginTop = parseInt(getComputedStyle(h2).getPropertyValue('margin-top'))
         let scrolled = (html.scrollTo - marginTop) / height
 
         h2.style.setProperty('--scale', )
+```
+
+## 特性操作
+
+>  操作特性，HTML标签上的属性`attribute`
+>
+> HTML 特性有以下几个特征：
+>
+> - 它们的名字是大小写不敏感的（`id` 与 `ID` 相同）。
+> - 它们的值总是字符串类型的。
+
+\+ `elem.hasAttribute(name)` — 检查特性是否存在。
+
+\+ `elem.getAttribute(name)` — 获取这个特性值。
+
+\+ `elem.setAttribute(name, value)` — 设置这个特性值。
+
+\+ `elem.removeAttribute(name)` — 移除这个特性。
+
+\+ `elem.attributes` — 读取所有特性：属于内建 Attr 类的对象的集合，具有 name 和 value 属性。
+
+### 非标准的特性-`dataset`
+
+所有以 “data-” 开头的特性均被保留供程序员使用。它们可在 dataset 属性中使用。
+
+```javascript
+ // 读取
+
+ alert(order.dataset.orderState); // new
+
+ // 修改
+
+ order.dataset.orderState = "pending"; // (*)
+
 ```
 
