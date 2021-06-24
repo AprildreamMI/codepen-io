@@ -194,7 +194,7 @@ h2 {
 
 ## `getComputedStyle`获取样式
 
-> https://www.runoob.com/w3cnote/window-getcomputedstyle-method.html
+`https://www.runoob.com/w3cnote/window-getcomputedstyle-method.html`
 
 **getComputedStyle** 和 **element.style** 的相同点就是二者返回的都是 CSSStyleDeclaration 对象，取相应属性值得时候都是采用的 CSS 驼峰式写法，均需要注意 float 属性。
 
@@ -238,6 +238,23 @@ let marginTop = parseInt(getComputedStyle(h2).getPropertyValue('margin-top'))
 ```
 
 ## `style`
+
+### 修改样式
+
++ `style.setProperty(propertyName, value, priority)`
+
+  `h2.style.setProperty('--scale', (1 - scrolled))`
+
++ `style.cssPropertyName = 'value'`
+
+```javascript
+var declaration = document.styleSheets[0].rules[0].style;
+declaration.setProperty('margin', '1px 2px');
+// Equivalent to:
+declaration.margin = '1px 2px';
+```
+
+
 
 ### 前缀属性
 
