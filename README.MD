@@ -113,6 +113,10 @@ document.documentElement.scrollHeight
 
 ## `classList`对类名的操作
 
+- `elem.classList.add/remove(class)` — 添加/移除类。
+- `elem.classList.toggle(class)` — 如果类不存在就添加类，存在就移除它。
+- `elem.classList.contains(class)` — 检查给定类，返回 `true/false`。
+
 ```javascript
 const div = document.createElement('div');
 div.className = 'foo';
@@ -188,7 +192,7 @@ h2 {
 </body>
 ```
 
-## 获取样式`getComputedStyle`
+## `getComputedStyle`获取样式
 
 > https://www.runoob.com/w3cnote/window-getcomputedstyle-method.html
 
@@ -201,8 +205,28 @@ h2 {
 
 **我们可以通过使用 \**getComputedStyle\** 读取样式，通过 \**element.style\** 修改样式。**
 
-+ `getComputedStyle(h2).getPropertyValue('margin-top')`
++ `getComputedStyle(h2).getPropertyValue('margin-top')`拿到的值带`px`
 + `h2.style.setProperty('--scale', (1 - scrolled))`
+
+```javascript
+<head>
+  <style> body { color: red; margin: 5px } </style>
+</head>
+<body>
+
+  <script>
+    let computedStyle = getComputedStyle(document.body);
+
+    // 现在我们可以读取它的 margin 和 color 了
+
+    alert( computedStyle.marginTop ); // 5px
+    alert( computedStyle.color ); // rgb(255, 0, 0)
+  </script>
+
+</body>
+```
+
+
 
 ```javascript
 let marginTop = parseInt(getComputedStyle(h2).getPropertyValue('margin-top'))
@@ -212,6 +236,37 @@ let marginTop = parseInt(getComputedStyle(h2).getPropertyValue('margin-top'))
 
         h2.style.setProperty('--scale', )
 ```
+
+## `style`
+
+### 前缀属性
+
+**前缀属性**
+
+像 `-moz-border-radius` 和 `-webkit-border-radius` 这样的浏览器前缀属性，也遵循同样的规则：连字符 `-` 表示大写。
+
+```javascript
+button.style.MozBorderRadius = '5px';
+button.style.WebkitBorderRadius = '5px';
+```
+
+
+
+### 重置样式属性
+
+有时我们想要分配一个样式属性，稍后移除它。
+
+例如，为了隐藏一个元素，我们可以设置 `elem.style.display = "none"`。
+
+然后，稍后我们可能想要移除 `style.display`，就像它没有被设置一样。这里不应该使用 `delete elem.style.display`，而应该使用 `elem.style.display = ""` 将其赋值为空。
+
+### `style.cssText`
+
+通常，我们使用 `style.*` 来对各个样式属性进行赋值。我们不能像这样的 `div.style="color: red; width: 100px"` 设置完整的属性，因为 `div.style` 是一个对象，并且它是只读的。
+
+想要以字符串的形式设置完整的样式，可以使用特殊属性 `style.cssText`：
+
+可以通过设置一个特性（attribute）来实现同样的效果：`div.setAttribute('style', 'color: red...')`。
 
 ## 特性操作
 
